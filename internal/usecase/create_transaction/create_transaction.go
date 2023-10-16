@@ -1,4 +1,4 @@
-package create_transaction
+/*package create_transaction
 
 import (
 	"context"
@@ -122,3 +122,4 @@ func (uc *CreateTransactionUseCase) getTransactionRepository(ctx context.Context
 	}
 	return repo.(gateway.TransactionGateway)
 }
+*/

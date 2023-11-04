@@ -3,7 +3,7 @@ package mocks
 import (
 	"context"
 
-	"github.com/CelsoTaliatelli/ms-walletcore/internal/pkg/uow"
+	"github.com/CelsoTaliatelli/ms-walletcore/pkg/uow"
 	"github.com/stretchr/testify/mock"
 )
 

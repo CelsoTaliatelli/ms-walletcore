@@ -32,10 +32,13 @@ func NewCreateClientUseCase(clientGateway gateway.ClientGateway) *CreateClientUs
 
 func (uc *CreateClientUseCase) Execute(input CreateClientInputDTO) (*CreateClientOutputDTO, error) {
 	client, err := entity.NewClient(input.Name, input.Email)
+	println(client.Name)
+	println(client.Email)
 	if err != nil {
 		return nil, err
 	}
 	err = uc.ClientGateway.Save(client)
+	println(err.Error())
 	if err != nil {
 		return nil, err
 	}

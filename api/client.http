@@ -1,0 +1,16 @@
+POST http://localhost:3000/clients HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Jonh Doe",
+    "email": "jj@J.com"
+}
+
+#######
+
+curl -X POST http://localhost:3000/clients -d '{"name":"Celso2", "email":"celso2@mail.com"}' -H "Content-Type: application/json"
+
+curl -X POST http://localhost:3000/accounts -d '{"client_id": "e63227cc-09da-457c-a888-730f8e71048d"}' -H "Content-Type: application/json"
+
+
+curl -X POST http://localhost:3000/transactions -d '{ "account_id_from": "e8f3a282-e964-4e3e-a950-6efb76f3ccf6","account_id_to": "e8f3a282-e964-4e3e-a950-6efb76f3ccf6", "amount": 1}' -H "Content-Type: application/json"

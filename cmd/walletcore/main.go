@@ -7,13 +7,16 @@ import (
 
 	"github.com/CelsoTaliatelli/ms-walletcore/internal/database"
 	"github.com/CelsoTaliatelli/ms-walletcore/internal/event"
+	"github.com/CelsoTaliatelli/ms-walletcore/internal/event/handler"
 	"github.com/CelsoTaliatelli/ms-walletcore/internal/usecase/create_account"
 	"github.com/CelsoTaliatelli/ms-walletcore/internal/usecase/create_client"
 	"github.com/CelsoTaliatelli/ms-walletcore/internal/usecase/create_transaction"
 	"github.com/CelsoTaliatelli/ms-walletcore/internal/web"
 	"github.com/CelsoTaliatelli/ms-walletcore/internal/web/webserver"
 	"github.com/CelsoTaliatelli/ms-walletcore/pkg/events"
+	"github.com/CelsoTaliatelli/ms-walletcore/pkg/kafka"
 	"github.com/CelsoTaliatelli/ms-walletcore/pkg/uow"
+	ckafka "github.com/confluentinc/confluent-kafka-go/kafka"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -25,7 +28,14 @@ func main() {
 	}
 	defer db.Close()
 
+	configMap := ckafka.ConfigMap{
+		"bootstrap.servers": "kafka:29092",
+		"group.id":          "wallet",
+	}
+	kafkaProducer := kafka.NewKafkaProducer(&configMap)
+
 	eventDispatcher := events.NewEventDispatcher()
+	eventDispatcher.Register("TransactionCreated", handler.NewTransactionCreatedKafkaHandler(kafkaProducer))
 	transactionCreatedEvent := event.NewTransactionCreated()
 	balanceUpdatedEvent := event.NewBalanceUpdated()
 	//eventDispatcher.Register("TransactionCreated",handler)

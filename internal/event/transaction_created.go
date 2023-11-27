@@ -13,12 +13,6 @@ func NewTransactionCreated() *TransactionCreated {
 	}
 }
 
-func NewBalanceUpdated() *TransactionCreated {
-	return &TransactionCreated{
-		Name: "BalancedUpdated",
-	}
-}
-
 func (e *TransactionCreated) GetName() string {
 	return e.Name
 }
